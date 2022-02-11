@@ -1,0 +1,45 @@
+{% load static %}
+{% load render_partial %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روشا فود | {% block title %} {% endblock %}</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'css/foodstyle.css' %}">
+    <!-- font awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}" />
+    
+</head>
+
+<body>
+    <!--start loader  -->
+    <div class="preloader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!--end loader  -->
+    <div class="container">
+        <!--start navbar element  -->
+        {% render_partial 'navbar' %}
+        <!--end navbar element  -->
+        {% block content %} {% endblock %}
+    </div>
+    {% render_partial 'footer' %}
+    <!-- jquery -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <!-- script js -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
+</body>
+
+</html>

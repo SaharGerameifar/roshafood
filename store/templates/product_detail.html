@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+
+    {{product.title}}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <section>
+        <div class="productcontainer">
+            <div class="row">
+                <div class="col-12">
+                    <div class="detailproductcard">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="imgBx">
+                                    <img src="{{product.pic.url}}" alt="{{product.title}}" class="img-fluid">
+
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mt-md-5">
+                                <div class="productcontent">
+                                    <h4>{{product.title}}</h4>
+                                    <p class="mt-4">
+                                        {{product.content}}
+                                    </p>
+                                    <h4>{{product.price|intcomma:False}} ريال</h4>
+                                    <form action="{% url 'cart_add' product.id %}" method="post" class="mb-5 mb-md-0 mt-4">
+                                        {% csrf_token %}
+                                        {{ cart_product_form }}
+                                    
+                                        <button type="submit"><img src="{% static 'img/basket.png' %}" alt="" class="img-fluid icon-add">افزودن به سبد خريد</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="recommended_items">
+                    <!--NewProduct_items-->
+                    <div class="col-12">
+                        <h2 class="title text-center d-block"> پيشنهادي هاي ما</h2>
+                    </div>
+                    
+                    <div id="recommended-item-carousel" class="carousel slide " data-ride="carousel">
+                        <div class="carousel-inner align-items-center mx-auto">
+                            {% for group in recommended_products %}
+                                <div class="carousel-item {{ forloop.first|yesno:'active,' }}">
+                                    <div class="productcontainer">
+                                        <div class="row d-flex justify-content-center">
+                                            {% for recommended_product in group %}
+                                                <div class="col-md-4">
+                                                    <div class="productcard">
+                                                        <div class="imgBx">
+                                                            <img src="{{recommended_product.pic.url}}" alt="{{recommended_product.title}}" class="img-fluid">
+                                                            <h4>{{recommended_product.title}}</h4>
+                                                            <h6 class="mt-2" style="color: white;">{{recommended_product.price|intcomma:False}} ريال</h6>
+                                                        </div>
+                                                        <div class="productcontent">
+                                                            <form action="{% url 'cart_add' recommended_product.id %}" method="post" class="mb-5 mb-md-0">
+                                                                {% csrf_token %}
+                                                                {{ cart_product_form }}
+                                                            
+                                                                <button type="submit"><img src="{% static 'img/basket.png' %}" alt="" class="img-fluid icon-add">افزودن به سبد خريد</button>
+                                                            </form>
+                                                            <a class="mt-2" href="{{ recommended_product.get_absolute_url }}"><img src="{% static 'img/Plus_perspective_matte.png' %}" alt="" class="img-fluid icon-add">مشاهده</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}    
+                                        </div>
+                                    </div>    
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="left recommended-item-control" href="#recommended-item-carousel"
+                            data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a class="right recommended-item-control" href="#recommended-item-carousel"
+                            data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!--/NewProduct_items-->
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

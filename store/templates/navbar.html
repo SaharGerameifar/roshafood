@@ -1,0 +1,41 @@
+{% load static %}
+
+<!--start navbar element  -->
+    <div class="row pt-5">
+        <div class="col-12">
+            <nav>
+                <h1 class="logo">
+                    <a  href="{% url 'home' %}"> روشا</a>
+                </h1>
+                <input type="checkbox" id="hambergur-toggle" />
+                <label for="hambergur-toggle" class="hambergur">
+                    <span class="bar"></span>
+                </label>
+                <ul class="nav-list">
+                    <li ><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">خانه</a></li>
+                    <li class="dropdown">
+                        <a  href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" >
+                            منو<i class="fa fa-angle-down px-2"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'product' %}">همه محصولات</a>
+                            <hr>
+                            {% for category in categories %}
+                                <a class="dropdown-item" href="{{ category.get_absolute_url }}"> {{ category.title }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li ><a href="{% url 'aboutus' %}" class="{% if request.resolver_match.url_name == 'aboutus' %}active{% endif %}">درباره ما</a></li>
+                    <li ><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">تماس با ما</a></li>
+
+                </ul>
+            </nav>
+            <div>
+                <a href="{% url 'cart_detail' %}">
+                    <img src="{% static 'img/basket.png' %}" alt="" class="icon-basket img-fluid float-left">
+                </a>
+            </div>
+        </div>
+    </div>
+<!--end navbar element  -->

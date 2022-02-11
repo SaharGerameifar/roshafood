@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+
+   ثبت اطلاعات سفارش 
+
+{% endblock %}
+
+
+{% block content %}
+        
+        <section id="cart_items" class="pb-0">
+            <div class="container productcontainer">
+                <h3 class="py-3 title-table">سفارش شما</h3>
+                <div class="table-responsive cart_info">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr class="cart_menu">
+                                <td ></td>
+                                <td class="description">محصول</td>
+                                <td class="total">مجمـوع</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart %}
+                                <tr>
+                                    <td class="cart_item_number">{{forloop.counter}}</td>
+                                    <td class="cart_description">
+                                        <h4 class="text-center"><a href="{{ item.product.get_absolute_url }}">{{ item.product.title|slice:":35" }}</a></h4>
+                                    </td>
+                                    <td class="cart_total">
+                                        <p class="text-center cart_total_price">{{ item.total_price|intcomma:False }} ريال</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="cart_description">
+                                    <p class="text-center">مجموع سبد خريد</p>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="text-center cart_total_price">{{ cart.get_total_price|intcomma:False }} ريال</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="cart_description">
+                                    <p class="text-center"> هزينه ارسال </p>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="text-center cart_total_price">رايگان</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="cart_description">
+                                    <p  class="text-center">مجموع سفارش </p>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="text-center cart_total_price">{{ cart.get_total_price|intcomma:False }} ريال</p>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section id="do_action" class="pt-0">
+            <div class="container do_action">
+                <div>{{ form.non_field_errors }}</div>
+                <form action="." class="mt-3 mr-3" method="post">
+                    {% csrf_token %}
+                    <table class="form-checkout">
+                                     
+                        <tr>
+                            <td> <label for="{{ form.name.id_for_label }}" class="form-control-lable ml-3"> {{ form.name.label }}</label></td>
+                            <td>
+                                {{ form.name }}
+                                  
+                            </td>
+                            {% for error in form.name.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        </tr>
+        
+                        <tr>
+                            <td> <label for="{{ form.family.id_for_label }}" class="form-control-lable ml-3"> {{ form.family.label }}</label></td>
+                            <td>
+                                {{ form.family }}
+                                  
+                            </td>
+                            {% for error in form.family.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        </tr>
+
+                        <tr>
+                            <td> <label for="{{ form.email.id_for_label }}" class="form-control-lable ml-3"> {{ form.email.label }}</label></td>
+                            <td>
+                                {{ form.email }}
+                                  
+                            </td>
+                            {% for error in form.email.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        </tr>
+
+                        <tr>
+                            <td> <label for="{{ form.mobile.id_for_label }}" class="form-control-lable ml-3"> {{ form.mobile.label }}</label></td>
+                            <td>
+                                {{ form.mobile }}
+                                  
+                            </td>
+                            {% for error in form.mobile.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        </tr>
+
+                        <tr>
+                            <td> <label for="{{ form.address.id_for_label }}" class="form-control-lable ml-3"> {{ form.address.label }}</label></td>
+                            <td>
+                                {{ form.address }}
+                                  
+                            </td>
+                            {% for error in form.address.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        </tr>
+
+
+                       
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="payment my-5 text-center " >
+                                    <button type="submit "><img src="{% static 'img/User_perspective_matte.png' %}" alt="" class="img-fluid icon-add"> ثبت اطلاعات </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    
+
+                </form>
+            </div>
+        </section>
+    
+{% endblock %}    

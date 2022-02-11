@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class SettingsiteConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'settingSite'
+    verbose_name = 'تنظيمات '

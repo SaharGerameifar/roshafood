@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+
+   سبد خريد
+
+{% endblock %}
+
+
+{% block content %}
+
+        <section id="cart_items" class="pb-0">
+            <div class="container productcontainer">
+                <div class="col-12">
+                    <h3 class="py-3 title-table"> سبد خريد</h3>
+                </div>
+                
+                {% if cart|length == 0 %}
+                    <div class="productcontent">
+                        <img src="{% static 'img/basket.png' %}" alt="" class="img-fluid w-25 h-25 d-block mx-auto">
+                        <p class="empty-text">سبد خرید خالی است!</p>
+                        <br />
+                    <div class="d-flex justify-content-center">
+                            <a href="{% url 'product' %}" class="back "><img src="{% static 'img/basket.png' %}" alt="" class="img-fluid icon-add">بازگشت به لیست محصولات</a>
+                    </div>
+                    </div>
+                       
+                {% else %}
+                    <div class="table-responsive cart_info">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr class="cart_menu">
+                                    <td></td>
+                                    <td class="image"></td>
+                                    <td class="description">عنوان</td>
+                                    <td class="price">قیمت</td>
+                                    <td class="quantity">تعـداد</td>
+                                    <td class="total">مجمـوع</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart %}
+                                    {% with product=item.product %}
+                                        <tr>
+                                            <td class="cart_item_number">{{forloop.counter}}</td>
+                                            <td class="cart_product">
+                                                <a href="{{ product.get_absolute_url }}"><img src="{{ product.pic.url }}" class="img-fluid" alt="{{ product.title }}"></a>
+                                            </td>
+                                            <td class="cart_description">
+                                                <h4><a href="{{ product.get_absolute_url }}"> {{ product.title|slice:":35"}}</a></h4>
+                                                
+                                            </td>
+                                            <td class="cart_price">
+                                                <p>{{ item.price|intcomma:False }} ريال</p>
+                                            </td>
+                                            <td class="cart_quantity">
+                                                <form action="{% url 'cart_update' product.id %}" method="post">
+                                                    {% csrf_token %}
+                                                    {{ item.update_count_from.count }}
+                                                    {{ item.update_count_from.update }}
+                                                    <div class="update-price mr-md-2 my-md-2 my-2">
+                                                        <button type="submit">بروز رساني</button>
+                                                    </div> 
+                                                </form>
+                                            </td>
+                                            <td class="cart_total">
+                                                <p class="cart_total_price">{{ item.total_price|intcomma:False }} ريال</p>
+                                            </td>
+                                            <td class="cart_delete">
+                                                <a class="cart_quantity_delete" href="{% url 'cart_remove' product.id %}"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endwith %}
+                                {% endfor %}    
+   
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}    
+            </div>
+        </section>
+        {% if cart|length != 0 %}
+            <section id="do_action" class="pt-0">
+                <div class="container do_action">
+                    
+                    <form action="#" class="mt-3 mr-3">
+                        <table>
+                            <tr>
+                                <td> <label for="" class="form-control-lable ml-3">مجموع سبد خريد</label></td>
+                                <td><input type="text" readonly class="form-control form-control-plaintext" value=" {{ cart.get_total_price|intcomma:False }} ريال"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="" class="form-control-lable ml-3">هزينه ارسال</label></td>
+                                <td> <input type="text" readonly class="form-control form-control-plaintext " value=" رايگان"></td>
+                            </tr>
+                            <tr>
+                                <td> <label for="" class="form-control-lable ml-3"> مجمـوع</label></td>
+                                <td><input type="text" readonly class="form-control form-control-plaintext " value="  {{ cart.get_total_price|intcomma:False }} ريال"></td>
+                            </tr>
+                        </table>
+                        <div class="payment my-5">
+                            <a  href="{% url 'checkout' %}"><img src="{% static 'img/basket.png' %}" alt="" class="img-fluid icon-add">تكميل خريد</a>
+                        </div>
+                                            
+                    </form>
+                </div>
+            </section>
+        {% endif %}     
+   
+
+{% endblock %}    

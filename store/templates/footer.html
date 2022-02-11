@@ -1,0 +1,15 @@
+{% load static %}
+    <footer class="footer ">
+        <div class="container">
+            <div class="social-network">
+            <a href="https://instagram.com/{{ site_setting.instagram }}" class="footer-icon"><img src="{% static 'img/Instagram_perspective_matte.png' %}" alt="" class="img-fluid icon-social"></a>
+            <a href="https://telegram.org/{{ site_setting.telegram }}" class="footer-icon"><img src="{% static 'img/Telegram_perspective_matte.png' %}" alt="" class="img-fluid icon-social"></a>
+            <a href="https://whatsapp.com/{{ site_setting.whatsapp }}" class="footer-icon "><img src="{% static 'img/WhatsApp_perspective_matte.png' %}" alt="" class="img-fluid icon-social"></a>
+            <a href="https://twitter.com/{{ site_setting.twitter }}" class="footer-icon"><img src="{% static 'img/Twitter_perspective_matte.png' %}" alt="" class="img-fluid icon-social"></a>
+            </div>
+        </div>
+        <div >
+            <p class="footer-privacy">{{site_setting.copy_right}}| <a href="#"
+                class="footer-privacy-link ">طراحی شده توسط: </a> </p>
+        </div>
+    </footer>

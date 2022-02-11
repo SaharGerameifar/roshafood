@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+
+ درباره ما
+
+{% endblock %}
+{% block content %}
+	<section >
+		<div class="aboutcontainer">
+			<div class="about">
+					<div class="row ">
+						<div class="col-12 col-md-4">
+							<div >
+								<h4 class="aboutus text-center">لوگـو مجموعه</h4>
+								<img src="{{ site_setting.logo_image.url }}" class="w-5 img-fluid" />
+							</div>
+						</div>
+						<div class="col-12 col-md-8">
+							<div>
+								<h4 class="aboutus text-center">دربـاره ما</h4>
+								<p class="aboutus">
+									{{ site_setting.about_us }}
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="row ">	
+						<div class="col-12 ">
+							<p class="aboutus-title">{{ site_setting.title }} </p>
+							<p class="aboutus"> {{ site_setting.address }} 	</p>
+							<p class="aboutus" > تلفن تماس : {{ site_setting.phone }} | تلفن همراه : {{ site_setting.mobile }} </p>
+							<p class="aboutus"> ایمیـل :{{ site_setting.email}}</p>
+						</div>	
+					</div>
+					<div class="row ">
+						<div class="col-12" >
+							<h4 class="aboutus text-center"> منتظر شما هستیـم ... </h4>    			    						<div id="gmap" class="contact-map">
+							<img src="{% static 'img/14.png' %}" class="img-fluid d-block mx-auto" alt="">
+						
+						</div>
+					</div>	
+			</div>
+		</div>	
+	</section>	
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}  تماس با ما {% endblock %}
+{% block content %}
+
+        <section>
+            <div class="productcontainer">
+                <div class="row">
+                    {% if new_contact %}
+                        <h3 class="new-contact col-12">پیام شما با موفقیت ثبت شد، در اولین فرصت بررسی میکنیم.</h3>
+                    {% else %}
+                        <div class="col-md-6 col-12">
+                            {{ form.non_field_errors }}
+                            <form method="POST" class="form-contact pr-2" action=".">
+                                <h4 class="mb-4">تماس با ما</h4>
+                                {% csrf_token %}
+                                <table class="form-checkout">
+                                     
+                                    <tr>
+                                        <td> <label for="{{ form.name.id_for_label }}" class="form-control-lable ml-3"> {{ form.name.label }}</label></td>
+                                        <td>
+                                            {{ form.name }}
+                                              
+                                        </td>
+                                        {% for error in form.name.errors %}
+                                            <p style="color: red;">{{ error }}</p>
+                                        {% endfor %}
+                                    </tr>
+                    
+                                    <tr>
+                                        <td> <label for="{{ form.email.id_for_label }}" class="form-control-lable ml-3"> {{ form.email.label }}</label></td>
+                                        <td>
+                                            {{ form.email }}
+                                              
+                                        </td>
+                                        {% for error in form.email.errors %}
+                                            <p style="color: red;">{{ error }}</p>
+                                        {% endfor %}
+                                    </tr>
+            
+                                    <tr>
+                                        <td> <label for="{{ form.mobile.id_for_label }}" class="form-control-lable ml-3"> {{ form.mobile.label }}</label></td>
+                                        <td>
+                                            {{ form.mobile }}
+                                              
+                                        </td>
+                                        {% for error in form.mobile.errors %}
+                                            <p style="color: red;">{{ error }}</p>
+                                        {% endfor %}
+                                    </tr>
+            
+                                    <tr>
+                                        <td> <label for="{{ form.message.id_for_label }}" class="form-control-lable ml-3"> {{ form.message.label }}</label></td>
+                                        <td>
+                                            {{ form.message }}
+                                              
+                                        </td>
+                                        {% for error in form.message.errors %}
+                                            <p style="color: red;">{{ error }}</p>
+                                        {% endfor %}
+                                    </tr>
+                   
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class=" my-3 text-center " >
+                                                <button type="submit" class="btn ">
+                                                    <img src="{% static 'img/Envelope_perspective_matte.png' %}" alt="" class="img-fluid icon-contact" /> ارسال
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </form>
+                        </div>
+                    {% endif %}     
+                    <div class="d-none d-md-flex col-md-6">
+                        <img src="{% static 'img/14.png' %}" alt="" class="img-fluid"  />
+                    </div> 
+
+                </div>
+            </div>
+        </section>
+        
+{% endblock %}   
